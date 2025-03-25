@@ -19,7 +19,6 @@ class RegisterScreen extends StatelessWidget {
         listener: (context, state) {
           if (state.state == RegisterStateEnum.success) {
             // Navigate to the main screen using GoRouter.
-            debugPrint('Navigating to /main');
             context.go('/main');
           }
         },
@@ -59,7 +58,6 @@ class RegisterScreen extends StatelessWidget {
                               } else if (state.state ==
                                   RegisterStateEnum.success) {
                                 // Navigate to the main screen using GoRouter.
-                                debugPrint('Navigating to /main');
                                 context.go('/main');
                                 return const SizedBox(); // Prevent the widget from rebuilding endlessly.
                               } else if (state.state ==

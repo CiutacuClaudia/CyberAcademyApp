@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-// Enum to track the state of the registration process
 enum RegisterStateEnum { initial, loading, success, failure }
 
 class RegisterState extends Equatable {
