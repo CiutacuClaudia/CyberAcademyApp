@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'custom_text_widget.dart';
+import 'input_text_widget.dart';
 
-class PasswordWidget extends StatefulWidget {
+class InputPasswordWidget extends StatefulWidget {
   final String label;
   final FormFieldValidator<String>? validator;
   final ValueChanged<String>? onChanged;
   final FormFieldSetter<String>? onSaved;
 
-  const PasswordWidget({
+  const InputPasswordWidget({
     super.key,
     this.label = 'Password',
     this.validator,
@@ -16,15 +16,15 @@ class PasswordWidget extends StatefulWidget {
   });
 
   @override
-  State<PasswordWidget> createState() => _PasswordFieldState();
+  State<InputPasswordWidget> createState() => _PasswordFieldState();
 }
 
-class _PasswordFieldState extends State<PasswordWidget> {
+class _PasswordFieldState extends State<InputPasswordWidget> {
   bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
-    return CustomTextWidget(
+    return InputTextWidget(
       label: widget.label,
       prefixIcon: Icons.lock,
       obscureText: _obscureText,

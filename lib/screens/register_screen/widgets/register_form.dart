@@ -1,9 +1,11 @@
+import 'package:disertatie/utils/routes.dart';
 import 'package:disertatie/widgets/authentication/custom_button_widget.dart';
-import 'package:disertatie/widgets/authentication/custom_text_widget.dart';
-import 'package:disertatie/widgets/authentication/password_widget.dart';
+import 'package:disertatie/widgets/authentication/input_text_widget.dart';
+import 'package:disertatie/widgets/authentication/input_password_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../../utils/dimensions.dart';
 import '../cubit/register_cubit.dart';
 
 class RegisterForm extends StatefulWidget {
@@ -32,8 +34,8 @@ class _RegisterFormState extends State<RegisterForm> {
                 .headlineMedium
                 ?.copyWith(fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 20),
-          CustomTextWidget(
+          const SizedBox(height: Dimensions.size_5),
+          InputTextWidget(
             label: 'Email',
             prefixIcon: Icons.email,
             keyboardType: TextInputType.emailAddress,
@@ -51,8 +53,8 @@ class _RegisterFormState extends State<RegisterForm> {
             },
             onChanged: (value) => _email = value,
           ),
-          const SizedBox(height: 16),
-          PasswordWidget(
+          const SizedBox(height: Dimensions.size_4),
+          InputPasswordWidget(
             label: 'Password',
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -70,8 +72,8 @@ class _RegisterFormState extends State<RegisterForm> {
             onChanged: (value) => _password = value,
             onSaved: (value) => _password = value,
           ),
-          const SizedBox(height: 16),
-          PasswordWidget(
+          const SizedBox(height: Dimensions.size_4),
+          InputPasswordWidget(
             label: 'Confirm Password',
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -85,19 +87,19 @@ class _RegisterFormState extends State<RegisterForm> {
             onChanged: (value) => _confirmPassword = value,
             onSaved: (value) => _confirmPassword = value,
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: Dimensions.size_6),
           CustomButtonWidget(
             label: 'Register',
             onPressed: _submitForm,
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: Dimensions.size_4),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text('Already have an account?'),
               TextButton(
                 onPressed: () {
-                  context.go('/login');
+                  context.goNamed(Routes.loginScreen);
                 },
                 child: const Text('Login'),
               ),

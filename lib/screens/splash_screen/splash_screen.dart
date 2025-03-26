@@ -1,4 +1,5 @@
 import 'package:disertatie/screens/splash_screen/widgets/splash_form.dart';
+import 'package:disertatie/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -17,7 +18,7 @@ class SplashScreen extends StatelessWidget {
       child: BlocListener<SplashCubit, SplashState>(
         listener: (context, state) {
           if (state.state == SplashStateEnum.finished) {
-            context.go('/register');
+            context.goNamed(Routes.registerScreen);
           }
         },
         child: Scaffold(

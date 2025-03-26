@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../utils/dimensions.dart';
 
-class CustomTextWidget extends StatelessWidget {
+class InputTextWidget extends StatelessWidget {
   final String label;
   final IconData prefixIcon;
   final bool obscureText;
@@ -10,7 +11,7 @@ class CustomTextWidget extends StatelessWidget {
   final FormFieldSetter<String>? onSaved;
   final TextInputType? keyboardType;
 
-  const CustomTextWidget({
+  const InputTextWidget({
     super.key,
     required this.label,
     required this.prefixIcon,
@@ -35,7 +36,7 @@ class CustomTextWidget extends StatelessWidget {
         prefixIcon: Icon(prefixIcon),
         suffixIcon: suffixIcon,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(Dimensions.size_2),
         ),
       ),
     );

@@ -1,6 +1,8 @@
+import 'package:disertatie/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../utils/routes.dart';
 import 'cubit/register_cubit.dart';
 import 'cubit/register_state.dart';
 import 'widgets/register_form.dart';
@@ -19,7 +21,7 @@ class RegisterScreen extends StatelessWidget {
         listener: (context, state) {
           if (state.state == RegisterStateEnum.success) {
             // Navigate to the main screen using GoRouter.
-            context.go('/main');
+            context.goNamed(Routes.mainScreen);
           }
         },
         child: Scaffold(
@@ -38,17 +40,19 @@ class RegisterScreen extends StatelessWidget {
               ),
               Center(
                 child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(24.0),
+                  padding: const EdgeInsets.all(Dimensions.size_6),
                   child: Column(
                     children: [
-                      const SizedBox(height: 20),
+                      const SizedBox(height: Dimensions.size_5),
                       Card(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0),
+                          borderRadius: BorderRadius.circular(
+                            Dimensions.size_4,
+                          ),
                         ),
-                        elevation: 8,
+                        elevation: Dimensions.size_2,
                         child: Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.all(Dimensions.size_4),
                           child: BlocBuilder<RegisterCubit, RegisterState>(
                             builder: (context, state) {
                               if (state.state == RegisterStateEnum.loading) {
@@ -58,7 +62,7 @@ class RegisterScreen extends StatelessWidget {
                               } else if (state.state ==
                                   RegisterStateEnum.success) {
                                 // Navigate to the main screen using GoRouter.
-                                context.go('/main');
+                                context.goNamed(Routes.mainScreen);
                                 return const SizedBox(); // Prevent the widget from rebuilding endlessly.
                               } else if (state.state ==
                                   RegisterStateEnum.failure) {
@@ -73,7 +77,7 @@ class RegisterScreen extends StatelessWidget {
                                             Theme.of(context).colorScheme.error,
                                       ),
                                     ),
-                                    const SizedBox(height: 16),
+                                    const SizedBox(height: Dimensions.size_4),
                                     const RegisterForm(),
                                   ],
                                 );
