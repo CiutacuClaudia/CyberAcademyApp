@@ -1,25 +1,54 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import '../../../common/models/user/user.dart';
+import '../../../network/config/api_result.dart';
+import '../models/register_request.dart';
+import '../repository/register_repository.dart';
 import 'register_state.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-  RegisterCubit()
-    : super(const RegisterState(state: RegisterStateEnum.initial));
+  final RegisterRepository _repository;
 
-  void register(String email, String password, String confirmPassword) async {
+  RegisterCubit({RegisterRepository? repository})
+      : _repository = repository ?? RegisterRepository(),
+        super(const RegisterState(state: RegisterStateEnum.initial));
+
+  Future<void> register({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String password,
+    required AppLocalizations loc,
+  }) async {
     emit(state.copyWith(state: RegisterStateEnum.loading));
 
-    await Future.delayed(Duration(seconds: 2));
+    final result = await _repository.registerUser(
+      RegisterRequest(
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+      ),
+    );
 
-    if (password == confirmPassword) {
+    if (result is ApiSuccess<User>) {
       emit(state.copyWith(state: RegisterStateEnum.success));
-    } else {
+    } else if (result is ApiFailure<User> &&
+        result.statusCode == ApiStatusCode.conflict) {
       emit(
         state.copyWith(
           state: RegisterStateEnum.failure,
-          errorMessage: 'Registration failed. Please check your credentials.',
+          emailError: loc.emailAlreadyUsed,
         ),
       );
+    } else {
+      emit(state.copyWith(state: RegisterStateEnum.failure));
+    }
+  }
+
+  void clearEmailError() {
+    if (state.emailError != null) {
+      emit(state.copyWith(state: RegisterStateEnum.initial, emailError: null));
     }
   }
 }

@@ -3,6 +3,9 @@ import 'package:disertatie/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:disertatie/common/repository/auth_repository.dart';
+
 import 'cubit/splash_cubit.dart';
 import 'cubit/splash_state.dart';
 
@@ -11,31 +14,26 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
     return BlocProvider(
-      create: (_) => SplashCubit(),
+      create:
+          (_) => SplashCubit(
+            secureStorage: const FlutterSecureStorage(),
+            authRepository: AuthRepository(),
+          ),
       child: BlocListener<SplashCubit, SplashState>(
         listener: (context, state) {
-          if (state.state == SplashStateEnum.finished) {
+          if (state.state == SplashStateEnum.navigateDashboard) {
+            context.goNamed(Routes.mainScreen);
+          } else if (state.state == SplashStateEnum.navigateLogin) {
+            context.goNamed(Routes.loginScreen);
+          } else if (state.state == SplashStateEnum.finished) {
             context.goNamed(Routes.registerScreen);
           }
         },
         child: Scaffold(
-          body: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  colorScheme.primary,
-                  colorScheme.primaryContainer,
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
-            child: const Center(
-              child: SplashForm(),
-            ),
+          backgroundColor: Colors.transparent,
+          body: const Center(
+            child: SplashForm(), // Your animated splash content goes here.
           ),
         ),
       ),

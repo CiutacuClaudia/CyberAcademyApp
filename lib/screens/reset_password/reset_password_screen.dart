@@ -1,0 +1,55 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../utils/dimensions.dart';
+import '../../../utils/routes.dart';
+import '../../common/widgets/authentication/toast.dart';
+import 'cubit/reset_password_cubit.dart';
+import 'cubit/reset_password_state.dart';
+import 'widgets/reset_password_form.dart';
+
+class ResetPasswordScreen extends StatelessWidget {
+  const ResetPasswordScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final loc = AppLocalizations.of(context)!;
+    return BlocProvider(
+      create: (_) => ResetPasswordCubit(),
+      child: BlocListener<ResetPasswordCubit, ResetPasswordState>(
+        listener: (context, state) {
+          if (state.status == ResetPasswordStatus.success) {
+            ToastService.showSuccessToast(message: loc.emailSent);
+            context.goNamed(Routes.resetPasswordConfirmationScreen);
+          } else if (state.status == ResetPasswordStatus.failure) {
+            ToastService.showErrorToast(
+              message: state.errorMessage ?? loc.somethingWentWrongError,
+            );
+          }
+        },
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(Dimensions.size_6),
+              child: Card(
+                color: colorScheme.primaryFixed,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(Dimensions.size_4),
+                ),
+                elevation: Dimensions.size_2,
+                child: Padding(
+                  padding: const EdgeInsets.all(Dimensions.size_4),
+                  child: const ResetPasswordForm(),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
