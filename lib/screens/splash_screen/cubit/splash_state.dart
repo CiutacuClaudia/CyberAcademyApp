@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-/// Enum to track the state of the splash screen.
-enum SplashStateEnum { initial, loading, finished }
+enum SplashStateEnum { initial, loading, finished , navigateDashboard, navigateLogin}
 
 class SplashState extends Equatable {
   final SplashStateEnum state;

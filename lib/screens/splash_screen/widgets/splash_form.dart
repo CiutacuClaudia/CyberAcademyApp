@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SplashForm extends StatefulWidget {
   const SplashForm({super.key});
@@ -36,10 +37,11 @@ class _SplashFormState extends State<SplashForm>
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     return FadeTransition(
       opacity: _animation,
       child: Text(
-        'CyberAcademy',
+        loc.appName,
         style: Theme.of(context).textTheme.headlineLarge?.copyWith(
           color: Colors.white,
           fontWeight: FontWeight.bold,

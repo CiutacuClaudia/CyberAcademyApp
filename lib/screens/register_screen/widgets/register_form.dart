@@ -1,15 +1,18 @@
 import 'package:disertatie/utils/routes.dart';
-import 'package:disertatie/widgets/authentication/custom_button_widget.dart';
-import 'package:disertatie/widgets/authentication/input_text_widget.dart';
-import 'package:disertatie/widgets/authentication/input_password_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../../common/widgets/authentication/custom_button_widget.dart';
+import '../../../common/widgets/authentication/input_password_widget.dart';
+import '../../../common/widgets/authentication/input_text_widget.dart';
 import '../../../utils/dimensions.dart';
+import '../../../utils/validators.dart';
 import '../cubit/register_cubit.dart';
 
 class RegisterForm extends StatefulWidget {
-  const RegisterForm({Key? key}) : super(key: key);
+  const RegisterForm({super.key});
 
   @override
   _RegisterFormState createState() => _RegisterFormState();
@@ -17,107 +20,138 @@ class RegisterForm extends StatefulWidget {
 
 class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
-  String? _email, _password, _confirmPassword;
+
+  late final TextEditingController _firstNameController;
+  late final TextEditingController _lastNameController;
+  late final TextEditingController _emailController;
+  late final TextEditingController _passwordController;
+  late final TextEditingController _confirmPasswordController;
 
   @override
-  Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Text(
-            'Create Account',
-            style: Theme.of(context)
-                .textTheme
-                .headlineMedium
-                ?.copyWith(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: Dimensions.size_5),
-          InputTextWidget(
-            label: 'Email',
-            prefixIcon: Icons.email,
-            keyboardType: TextInputType.emailAddress,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter an email';
-              }
-              if (!value.contains('@')) {
-                return 'Email must contain "@"';
-              }
-              if (value.length > 40) {
-                return 'Email must not exceed 40 characters';
-              }
-              return null;
-            },
-            onChanged: (value) => _email = value,
-          ),
-          const SizedBox(height: Dimensions.size_4),
-          InputPasswordWidget(
-            label: 'Password',
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter a password';
-              }
-              final passwordRegex = RegExp(
-                r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[+!@#\$&*~]).{10,}$',
-              );
-              if (!passwordRegex.hasMatch(value)) {
-                return 'Password must be at least 10 characters.\n'
-                    'Include uppercase, lowercase, number, and special character.';
-              }
-              return null;
-            },
-            onChanged: (value) => _password = value,
-            onSaved: (value) => _password = value,
-          ),
-          const SizedBox(height: Dimensions.size_4),
-          InputPasswordWidget(
-            label: 'Confirm Password',
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please confirm your password';
-              }
-              if (_password != null && value != _password) {
-                return 'Passwords do not match';
-              }
-              return null;
-            },
-            onChanged: (value) => _confirmPassword = value,
-            onSaved: (value) => _confirmPassword = value,
-          ),
-          const SizedBox(height: Dimensions.size_6),
-          CustomButtonWidget(
-            label: 'Register',
-            onPressed: _submitForm,
-          ),
-          const SizedBox(height: Dimensions.size_4),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text('Already have an account?'),
-              TextButton(
-                onPressed: () {
-                  context.goNamed(Routes.loginScreen);
-                },
-                child: const Text('Login'),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+  void initState() {
+    super.initState();
+    _firstNameController = TextEditingController();
+    _lastNameController = TextEditingController();
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
+    _confirmPasswordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
   }
 
   void _submitForm() {
     if (_formKey.currentState?.validate() ?? false) {
       _formKey.currentState?.save();
       context.read<RegisterCubit>().register(
-        _email!,
-        _password!,
-        _confirmPassword!,
+        firstName: _firstNameController.text,
+        lastName: _lastNameController.text,
+        email: _emailController.text,
+        password: _passwordController.text,
+        loc: AppLocalizations.of(context)!,
       );
     }
+  }
+  @override
+  Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(Dimensions.size_2),
+      child: Form(
+        key: _formKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text(
+              loc.registerTitle,
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: colorScheme.onPrimaryFixed,
+              ),
+            ),
+            const SizedBox(height: Dimensions.size_5),
+            InputTextWidget(
+              label: loc.firstName,
+              prefixIcon: Icons.person,
+              validator:
+                  (value) => validateName(value, loc: loc, isFirstName: true),
+              onChanged: (value) => _firstNameController.text = value,
+            ),
+            const SizedBox(height: Dimensions.size_4),
+            InputTextWidget(
+              label: loc.lastName,
+              prefixIcon: Icons.person_outline,
+              validator:
+                  (value) => validateName(value, loc: loc, isFirstName: false),
+              onChanged: (value) => _lastNameController.text = value,
+            ),
+            const SizedBox(height: Dimensions.size_4),
+            InputTextWidget(
+              label: loc.email,
+              prefixIcon: Icons.email,
+              keyboardType: TextInputType.emailAddress,
+              validator: (value) => validateEmail(value, loc: loc),
+              onChanged: (value) => _emailController.text = value,
+            ),
+            const SizedBox(height: Dimensions.size_4),
+            InputPasswordWidget(
+              label: loc.password,
+              validator: (value) => validateRegisterPassword(value, loc: loc),
+              onChanged: (value) => _passwordController.text = value,
+              onSaved: (value) => _passwordController.text = value!,
+            ),
+            const SizedBox(height: Dimensions.size_4),
+            InputPasswordWidget(
+              label: loc.confirmPassword,
+              validator:
+                  (value) =>
+                      validateConfirmPassword(value, _passwordController.text, loc: loc),
+              onChanged: (value) => _confirmPasswordController.text = value,
+              onSaved: (value) => _confirmPasswordController.text = value!,
+            ),
+            const SizedBox(height: Dimensions.size_6),
+            CustomButtonWidget(
+              label: loc.registerTitle,
+              onPressed: _submitForm,
+            ),
+            const SizedBox(height: Dimensions.size_4),
+            Row(
+              children: [
+                const Expanded(
+                  child: Divider(thickness: 1, color: Colors.grey),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    loc.or,
+                    style: const TextStyle(color: Colors.grey),
+                  ),
+                ),
+                const Expanded(
+                  child: Divider(thickness: 1, color: Colors.grey),
+                ),
+              ],
+            ),
+            const SizedBox(height: Dimensions.size_4),
+            CustomButtonWidget(
+              label: loc.loginTitle,
+              onPressed: () {
+                context.goNamed(Routes.loginScreen);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -1,3 +1,5 @@
+import 'package:disertatie/screens/reset_password/reset_password_confirmation_screen.dart';
+import 'package:disertatie/screens/reset_password/reset_password_screen.dart';
 import 'package:disertatie/screens/splash_screen/splash_screen.dart';
 import 'package:disertatie/utils/routes.dart';
 import 'package:go_router/go_router.dart';
@@ -28,6 +30,16 @@ class AppRouter {
         name: Routes.loginScreen,
         path: '/login',
         builder: (context, state) => const LoginScreen(),
+      ),
+      GoRoute(
+        name: Routes.resetPasswordScreen,
+        path: '/resetPassword',
+        builder: (context, state) => const ResetPasswordScreen(),
+      ),
+      GoRoute(
+        name: Routes.resetPasswordConfirmationScreen,
+        path: '/resetPasswordConfirmationScreen',
+        builder: (context, state) => const ResetPasswordConfirmationScreen(),
       ),
     ],
   );
