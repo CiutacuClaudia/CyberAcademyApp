@@ -7,9 +7,9 @@ import '../../../utils/dimensions.dart';
 import '../../../utils/routes.dart';
 import '../../../utils/validators.dart';
 import '../cubit/login_cubit.dart';
-import 'package:disertatie/common/widgets/authentication/input_text_widget.dart';
-import 'package:disertatie/common/widgets/authentication/input_password_widget.dart';
-import 'package:disertatie/common/widgets/authentication/custom_button_widget.dart';
+import 'package:disertatie/common/widgets/input_text_widget.dart';
+import 'package:disertatie/common/widgets/input_password_widget.dart';
+import 'package:disertatie/common/widgets/custom_button_widget.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});

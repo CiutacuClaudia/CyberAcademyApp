@@ -12,6 +12,7 @@ import 'package:disertatie/screens/register_screen/register_screen.dart';
 class AppRouter {
   static final GoRouter goRouter = GoRouter(
     initialLocation: '/',
+    debugLogDiagnostics: true,
     routes: [
       GoRoute(
         name: Routes.splashScreen,

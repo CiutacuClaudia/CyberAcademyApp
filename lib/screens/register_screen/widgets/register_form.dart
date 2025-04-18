@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../common/widgets/authentication/custom_button_widget.dart';
-import '../../../common/widgets/authentication/input_password_widget.dart';
-import '../../../common/widgets/authentication/input_text_widget.dart';
+import '../../../common/widgets/custom_button_widget.dart';
+import '../../../common/widgets/input_password_widget.dart';
+import '../../../common/widgets/input_text_widget.dart';
 import '../../../utils/dimensions.dart';
 import '../../../utils/validators.dart';
 import '../cubit/register_cubit.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../common/widgets/authentication/toast.dart';
+import '../common/widgets/toast.dart';
 
 class UrlLauncherService {
   /// Opens the given [url] using [launchUrl] with the specified [mode].

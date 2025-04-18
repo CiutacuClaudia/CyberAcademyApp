@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../common/widgets/authentication/custom_button_widget.dart';
-import '../../../common/widgets/authentication/input_text_widget.dart';
+import '../../../common/widgets/custom_button_widget.dart';
+import '../../../common/widgets/input_text_widget.dart';
 import '../../../utils/dimensions.dart';
 import '../../../utils/validators.dart';
 import '../cubit/reset_password_cubit.dart';
