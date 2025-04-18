@@ -11,7 +11,7 @@ class AuthRepository {
   );
 
   Future<String?> refreshAccessToken(String refreshToken) async {
-    final url = Uri.parse('${ApiConfig.baseUrl}/users/refresh');
+    final url = Uri.parse('${ApiConfig.baseUrl}/cyberacademy/users/refresh');
 
     final refreshRequest = RefreshTokenRequest(refreshToken: refreshToken);
     final response = await _client.post(

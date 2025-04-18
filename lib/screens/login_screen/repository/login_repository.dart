@@ -16,7 +16,7 @@ class LoginRepository {
     required String email,
     required String password,
   }) async {
-    final url = Uri.parse('${ApiConfig.baseUrl}/users/login');
+    final url = Uri.parse('${ApiConfig.baseUrl}/cyberacademy/users/login');
     final request = LoginRequest(email: email, password: password);
 
     final response = await _client.post(

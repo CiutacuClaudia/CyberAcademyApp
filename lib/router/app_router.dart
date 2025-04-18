@@ -1,3 +1,5 @@
+import 'package:disertatie/screens/crypto/crypto_screen.dart';
+import 'package:disertatie/screens/phishing/phishing_screen.dart';
 import 'package:disertatie/screens/reset_password/reset_password_confirmation_screen.dart';
 import 'package:disertatie/screens/reset_password/reset_password_screen.dart';
 import 'package:disertatie/screens/splash_screen/splash_screen.dart';
@@ -40,6 +42,16 @@ class AppRouter {
         name: Routes.resetPasswordConfirmationScreen,
         path: '/resetPasswordConfirmationScreen',
         builder: (context, state) => const ResetPasswordConfirmationScreen(),
+      ),
+      GoRoute(
+        name: Routes.cryptoScreen,
+        path: '/cryptoScreen',
+        builder: (context, state) => const CryptoScreen(),
+      ),
+      GoRoute(
+        name: Routes.phishingScreen,
+        path: '/phishingScreen',
+        builder: (context, state) => const PhishingScreen(),
       ),
     ],
   );

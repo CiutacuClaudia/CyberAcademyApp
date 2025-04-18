@@ -13,7 +13,7 @@ class RegisterRepository {
   );
 
   Future<ApiResult<User>> registerUser(RegisterRequest request) async {
-    final url = Uri.parse('${ApiConfig.baseUrl}/users/register');
+    final url = Uri.parse('${ApiConfig.baseUrl}/cyberacademy/users/register');
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode(request.toJson());
 
