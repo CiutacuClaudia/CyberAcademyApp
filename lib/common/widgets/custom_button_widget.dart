@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../utils/dimensions.dart';
+import '../../utils/dimensions.dart';
 
 class CustomButtonWidget extends StatelessWidget {
   final String label;

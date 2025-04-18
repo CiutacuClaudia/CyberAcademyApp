@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../utils/dimensions.dart';
+import '../../utils/dimensions.dart';
 
 class InputTextWidget extends StatelessWidget {
   final String label;

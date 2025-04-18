@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
-import '../../common/widgets/authentication/toast.dart';
+import '../../common/widgets/toast.dart';
 import 'cubit/login_cubit.dart';
 import 'cubit/login_state.dart';
 import '../../utils/routes.dart';

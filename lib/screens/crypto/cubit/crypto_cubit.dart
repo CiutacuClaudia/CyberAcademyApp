@@ -4,7 +4,7 @@ import '../models/caesar_cipher_request.dart';
 import '../models/playfair_cipher_request.dart';
 import '../repository/crypto_repository.dart';
 import 'crypto_state.dart';
-import '../../../common/widgets/authentication/toast.dart';
+import '../../../common/widgets/toast.dart';
 
 class CryptoCubit extends Cubit<CryptoState> {
   final CryptoRepository _repository;

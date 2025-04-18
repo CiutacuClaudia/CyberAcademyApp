@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../utils/dimensions.dart';
 import '../../../utils/routes.dart';
-import '../../common/widgets/authentication/toast.dart';
+import '../../common/widgets/toast.dart';
 import 'cubit/reset_password_cubit.dart';
 import 'cubit/reset_password_state.dart';
 import 'widgets/reset_password_form.dart';
