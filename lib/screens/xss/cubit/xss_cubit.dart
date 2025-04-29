@@ -53,7 +53,6 @@ class XssCubit extends Cubit<XssState> {
     final req = state.currentChallenge;
     if (req == null) return;
 
-    // Append locally
     final updated = List<String>.from(req.comments)..add(comment);
 
     final putRes = await _repository.updateChallenge(
@@ -66,7 +65,6 @@ class XssCubit extends Cubit<XssState> {
       return;
     }
 
-    // Update state in place
     final updatedChallenge = (putRes as ApiSuccess<XssRequest>).data;
     final all = List<XssRequest>.from(state.challenges)
       ..[state.currentIndex] = updatedChallenge;

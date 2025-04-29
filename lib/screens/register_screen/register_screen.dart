@@ -52,7 +52,7 @@ class RegisterScreen extends StatelessWidget {
                             );
                           } else if (state.state == RegisterStateEnum.success) {
                             context.goNamed(Routes.mainScreen);
-                            return const SizedBox(); // Prevent the widget from rebuilding endlessly.
+                            return const SizedBox();
                           } else if (state.state == RegisterStateEnum.failure) {
                             return Column(
                               mainAxisSize: MainAxisSize.min,

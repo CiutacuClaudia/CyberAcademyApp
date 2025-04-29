@@ -3,11 +3,11 @@ import 'package:equatable/equatable.dart';
 enum RegisterStateEnum { initial, loading, success, failure }
 
 class RegisterState extends Equatable {
-  final RegisterStateEnum state; // Tracks the registration state
-  final String? nameError; // Error message for the name field
-  final String? emailError; // Error message for the email field
-  final String? passwordError; // Error message for the password field
-  final String? errorMessage; // General error message (for unexpected errors)
+  final RegisterStateEnum state;
+  final String? nameError;
+  final String? emailError;
+  final String? passwordError;
+  final String? errorMessage;
 
   const RegisterState({
     required this.state,
@@ -17,7 +17,6 @@ class RegisterState extends Equatable {
     this.errorMessage,
   });
 
-  // Method to copy and modify the current state
   RegisterState copyWith({
     RegisterStateEnum? state,
     String? nameError,
