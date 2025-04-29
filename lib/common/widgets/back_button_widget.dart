@@ -9,11 +9,7 @@ class CustomBackButton extends StatelessWidget {
     return IconButton(
       icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
       onPressed: () {
-        if (GoRouter.of(context).canPop()) {
-          context.pop();
-        } else {
-          Navigator.of(context).maybePop();
-        }
+        context.pop();
       },
     );
   }

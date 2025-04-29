@@ -75,7 +75,7 @@ class PhishingCubit extends Cubit<PhishingState> {
     final selected = state.selectedPartIndices.toSet();
 
     if (selected.containsAll(correct) && correct.containsAll(selected)) {
-      ToastService.showSuccessToast(message: 'Congrats');
+      ToastService.showSuccessToast(message: '🎉Congrats');
       _goToNext();
     } else {
       ToastService.showErrorToast(

@@ -3,6 +3,7 @@ import 'package:disertatie/screens/phishing/phishing_screen.dart';
 import 'package:disertatie/screens/reset_password/reset_password_confirmation_screen.dart';
 import 'package:disertatie/screens/reset_password/reset_password_screen.dart';
 import 'package:disertatie/screens/splash_screen/splash_screen.dart';
+import 'package:disertatie/screens/xss/xss_screen.dart';
 import 'package:disertatie/utils/routes.dart';
 import 'package:go_router/go_router.dart';
 import 'package:disertatie/screens/login_screen/login_screen.dart';
@@ -53,6 +54,11 @@ class AppRouter {
         name: Routes.phishingScreen,
         path: '/phishingScreen',
         builder: (context, state) => const PhishingScreen(),
+      ),
+      GoRoute(
+        name: Routes.xssScreen,
+        path: '/xssScreen',
+        builder: (context, state) => const XssScreen(),
       ),
     ],
   );
