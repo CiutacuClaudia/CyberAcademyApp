@@ -26,6 +26,12 @@ class MainScreen extends StatelessWidget {
                 context.push(Routes.phishingScreen);
               },
             ),
+            CustomButtonWidget(
+              label: 'Web Browsing Challenge',
+              onPressed: () {
+                context.push(Routes.xssScreen);
+              },
+            ),
           ],
         ),
       ),

@@ -18,7 +18,6 @@ class CryptoCubit extends Cubit<CryptoState> {
   Future<void> loadCiphers() async {
     emit(state.copyWith(status: CryptoStateEnum.loading));
 
-    // Load Caesar ciphers first.
     final caesarResult = await _repository.getCaesarCiphers();
     if (caesarResult is ApiSuccess<List<CaesarCipher>>) {
       final caesarList = caesarResult.data;
@@ -72,7 +71,7 @@ class CryptoCubit extends Cubit<CryptoState> {
       final currentCipher = state.currentCaesarCipher;
       if (currentCipher == null) return;
       if (input.trim().toLowerCase() == currentCipher.encryptedText) {
-        ToastService.showSuccessToast(message: "Congrats");
+        ToastService.showSuccessToast(message: "🎉Congrats");
         if (state.currentIndex < state.caesarCiphers.length - 1) {
           emit(state.copyWith(currentIndex: state.currentIndex + 1));
         } else {
@@ -96,7 +95,7 @@ class CryptoCubit extends Cubit<CryptoState> {
       final currentCipher = state.currentPlayfairCipher;
       if (currentCipher == null) return;
       if (input.trim().toLowerCase() == currentCipher.encryptedText) {
-        ToastService.showSuccessToast(message: "Congrats");
+        ToastService.showSuccessToast(message: "🎉Congrats");
         if (state.currentIndex < state.playfairCiphers.length - 1) {
           emit(state.copyWith(currentIndex: state.currentIndex + 1));
         } else {
@@ -118,7 +117,6 @@ class CryptoCubit extends Cubit<CryptoState> {
 
   void skipCipher() {
     if (state.activeCipher == CipherType.caesar) {
-      // If there's another Caesar cipher in the list, advance.
       if (state.currentIndex < state.caesarCiphers.length - 1) {
         emit(state.copyWith(currentIndex: state.currentIndex + 1));
       } else {

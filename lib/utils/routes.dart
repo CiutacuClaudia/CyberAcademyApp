@@ -7,4 +7,5 @@ class Routes {
   static const String resetPasswordConfirmationScreen  = 'resetPasswordConfirmationScreen';
   static const String cryptoScreen  = '/cryptoScreen';
   static const String phishingScreen  = '/phishingScreen';
+  static const String xssScreen  = '/xssScreen';
 }
