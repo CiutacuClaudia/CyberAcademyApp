@@ -3,6 +3,7 @@ import '../models/caesar_cipher_request.dart';
 import '../models/playfair_cipher_request.dart';
 
 enum CryptoStateEnum { initial, loading, success, failure }
+
 enum CipherType { caesar, playfair }
 
 class CryptoState extends Equatable {

@@ -60,6 +60,7 @@ class SplashCubit extends Cubit<SplashState> {
 
     emit(SplashState(state: state));
   }
+
   void _startAnimation() async {
     emit(state.copyWith(state: SplashStateEnum.loading));
     await Future.delayed(const Duration(seconds: 3));

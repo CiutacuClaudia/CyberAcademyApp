@@ -21,10 +21,7 @@ class _SplashFormState extends State<SplashForm>
       vsync: this,
     );
 
-    _animation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeIn,
-    );
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
 
     _controller.forward();
   }

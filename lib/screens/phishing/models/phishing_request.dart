@@ -26,11 +26,7 @@ class PhishingPart {
   final String? reason;
   final bool phishing;
 
-  PhishingPart({
-    required this.text,
-    this.reason,
-    required this.phishing,
-  });
+  PhishingPart({required this.text, this.reason, required this.phishing});
 
   factory PhishingPart.fromJson(Map<String, dynamic> json) =>
       _$PhishingPartFromJson(json);

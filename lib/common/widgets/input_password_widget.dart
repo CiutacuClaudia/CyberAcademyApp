@@ -29,9 +29,7 @@ class _PasswordFieldState extends State<InputPasswordWidget> {
       prefixIcon: Icons.lock,
       obscureText: _obscureText,
       suffixIcon: IconButton(
-        icon: Icon(
-          _obscureText ? Icons.visibility_off : Icons.visibility,
-        ),
+        icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
         onPressed: () {
           setState(() {
             _obscureText = !_obscureText;

@@ -59,6 +59,7 @@ class _RegisterFormState extends State<RegisterForm> {
       );
     }
   }
+
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
@@ -114,8 +115,11 @@ class _RegisterFormState extends State<RegisterForm> {
             InputPasswordWidget(
               label: loc.confirmPassword,
               validator:
-                  (value) =>
-                      validateConfirmPassword(value, _passwordController.text, loc: loc),
+                  (value) => validateConfirmPassword(
+                    value,
+                    _passwordController.text,
+                    loc: loc,
+                  ),
               onChanged: (value) => _confirmPasswordController.text = value,
               onSaved: (value) => _confirmPasswordController.text = value!,
             ),
@@ -146,7 +150,7 @@ class _RegisterFormState extends State<RegisterForm> {
             CustomButtonWidget(
               label: loc.loginTitle,
               onPressed: () {
-                context.goNamed(Routes.loginScreen);
+                context.goNamed(Routes.loginScreen.name);
               },
             ),
           ],

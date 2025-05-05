@@ -11,8 +11,8 @@ class PhishingCubit extends Cubit<PhishingState> {
   final PhishingRepository _repository;
 
   PhishingCubit({PhishingRepository? repository})
-      : _repository = repository ?? PhishingRepository(),
-        super(const PhishingState(status: PhishingStateEnum.initial)) {
+    : _repository = repository ?? PhishingRepository(),
+      super(const PhishingState(status: PhishingStateEnum.initial)) {
     loadPhishing();
   }
 
@@ -22,42 +22,50 @@ class PhishingCubit extends Cubit<PhishingState> {
     final reqResult = await _repository.getPhishingRequests();
     if (reqResult is ApiFailure) {
       final failure = reqResult as ApiFailure;
-      emit(state.copyWith(
-        status: PhishingStateEnum.failure,
-        errorMessage: failure.message,
-      ));
+      emit(
+        state.copyWith(
+          status: PhishingStateEnum.failure,
+          errorMessage: failure.message,
+        ),
+      );
       return;
     }
 
     final reasonResult = await _repository.getPhishingReasons();
     if (reasonResult is ApiFailure) {
       final failure = reasonResult as ApiFailure;
-      emit(state.copyWith(
-        status: PhishingStateEnum.failure,
-        errorMessage: failure.message,
-      ));
+      emit(
+        state.copyWith(
+          status: PhishingStateEnum.failure,
+          errorMessage: failure.message,
+        ),
+      );
       return;
     }
 
     final requests = (reqResult as ApiSuccess<List<PhishingRequest>>).data;
-    final reasons  = (reasonResult as ApiSuccess<List<PhishingReasonRequest>>).data;
+    final reasons =
+        (reasonResult as ApiSuccess<List<PhishingReasonRequest>>).data;
 
     if (requests.isEmpty) {
-      emit(state.copyWith(
-        status: PhishingStateEnum.failure,
-        errorMessage: 'No phishing emails found',
-      ));
+      emit(
+        state.copyWith(
+          status: PhishingStateEnum.failure,
+          errorMessage: (requests as ApiFailure).message,
+        ),
+      );
     } else {
-      emit(state.copyWith(
-        status: PhishingStateEnum.success,
-        requests: requests,
-        reasons: reasons,
-        currentIndex: 0,
-        selectedPartIndices: [],
-      ));
+      emit(
+        state.copyWith(
+          status: PhishingStateEnum.success,
+          requests: requests,
+          reasons: reasons,
+          currentIndex: 0,
+          selectedPartIndices: [],
+        ),
+      );
     }
   }
-
 
   void addPart(int index) {
     if (!state.selectedPartIndices.contains(index)) {
@@ -70,8 +78,10 @@ class PhishingCubit extends Cubit<PhishingState> {
     final req = state.currentRequest;
     if (req == null) return;
 
-    final correct =
-    { for (int i = 0; i < req.parts.length; i++) if (req.parts[i].phishing) i };
+    final correct = {
+      for (int i = 0; i < req.parts.length; i++)
+        if (req.parts[i].phishing) i,
+    };
     final selected = state.selectedPartIndices.toSet();
 
     if (selected.containsAll(correct) && correct.containsAll(selected)) {

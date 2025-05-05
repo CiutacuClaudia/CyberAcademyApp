@@ -76,10 +76,8 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
             ),
             const SizedBox(height: Dimensions.size_4),
             TextButton(
-              onPressed: () => context.goNamed(Routes.loginScreen),
-              style: TextButton.styleFrom(
-                foregroundColor: colorScheme.scrim,
-              ),
+              onPressed: () => context.goNamed(Routes.loginScreen.name),
+              style: TextButton.styleFrom(foregroundColor: colorScheme.scrim),
               child: Text(loc.goToLogin),
             ),
           ],

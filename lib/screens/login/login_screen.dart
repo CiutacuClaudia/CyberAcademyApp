@@ -1,4 +1,4 @@
-import 'package:disertatie/screens/login_screen/widgets/login_form.dart';
+import 'package:disertatie/screens/login/widgets/login_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -22,7 +22,7 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state) {
           if (state.status == LoginStateEnum.success) {
             ToastService.showSuccessToast(message: loc.loginSuccessful);
-            context.goNamed(Routes.mainScreen);
+            context.goNamed(Routes.homeScreen.name);
           } else if (state.status == LoginStateEnum.failure) {
             ToastService.showErrorToast(message: loc.somethingWentWrongError);
           }

@@ -15,7 +15,9 @@ class ResetPasswordRepository {
     required String code,
     required String newPassword,
   }) async {
-    final url = Uri.parse('${ApiConfig.baseUrl}/cyberacademy/users/reset-password');
+    final url = Uri.parse(
+      '${ApiConfig.baseUrl}/cyberacademy/users/reset-password',
+    );
 
     final request = ResetPasswordConfirmRequest(
       code: code,
@@ -41,7 +43,9 @@ class ResetPasswordRepository {
   }
 
   Future<ApiResult<void>> requestReset({required String email}) async {
-    final url = Uri.parse('${ApiConfig.baseUrl}/cyberacademy/users/reset-password-request');
+    final url = Uri.parse(
+      '${ApiConfig.baseUrl}/cyberacademy/users/reset-password-request',
+    );
 
     final request = ResetPasswordRequest(email: email);
     final response = await _client.post(

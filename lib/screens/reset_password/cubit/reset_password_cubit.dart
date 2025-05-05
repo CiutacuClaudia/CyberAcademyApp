@@ -8,8 +8,8 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   final ResetPasswordRepository _repository;
 
   ResetPasswordCubit({ResetPasswordRepository? repository})
-      : _repository = repository ?? ResetPasswordRepository(),
-        super(const ResetPasswordState());
+    : _repository = repository ?? ResetPasswordRepository(),
+      super(const ResetPasswordState());
 
   Future<void> confirmReset({
     required String code,

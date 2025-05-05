@@ -23,7 +23,7 @@ class ResetPasswordConfirmationScreen extends StatelessWidget {
         listener: (context, state) {
           if (state.status == ResetPasswordStatus.success) {
             ToastService.showSuccessToast(message: loc.passwordResetSuccessful);
-            context.goNamed(Routes.loginScreen);
+            context.goNamed(Routes.loginScreen.name);
           } else if (state.status == ResetPasswordStatus.failure) {
             ToastService.showErrorToast(
               message: state.errorMessage ?? loc.somethingWentWrongError,

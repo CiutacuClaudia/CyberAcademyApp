@@ -14,8 +14,8 @@ class LoginCubit extends Cubit<LoginState> {
   final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
 
   LoginCubit({LoginRepository? repository, AuthRepository? authRepository})
-      : _repository = repository ?? LoginRepository(),
-        super(const LoginState(status: LoginStateEnum.initial)) {
+    : _repository = repository ?? LoginRepository(),
+      super(const LoginState(status: LoginStateEnum.initial)) {
     _secureStorage.deleteAll();
   }
 

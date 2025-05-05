@@ -1,11 +1,55 @@
+import 'package:flutter/material.dart';
+
+class RoutesKeys {
+  static final GlobalKey<NavigatorState> homeNavigatorKey =
+      GlobalKey<NavigatorState>();
+
+  static final GlobalKey<NavigatorState> learningNavigatorKey =
+      GlobalKey<NavigatorState>();
+
+  static final GlobalKey<NavigatorState> settingsNavigatorKey =
+      GlobalKey<NavigatorState>();
+}
+
+class AppRoute {
+  final String name;
+  final String path;
+
+  const AppRoute({required this.name, required this.path});
+}
+
 class Routes {
-  static const String splashScreen = 'splash';
-  static const String registerScreen  = 'register';
-  static const String mainScreen  = 'main';
-  static const String loginScreen  = 'login';
-  static const String resetPasswordScreen  = 'resetPassword';
-  static const String resetPasswordConfirmationScreen  = 'resetPasswordConfirmationScreen';
-  static const String cryptoScreen  = '/cryptoScreen';
-  static const String phishingScreen  = '/phishingScreen';
-  static const String xssScreen  = '/xssScreen';
+  static const AppRoute splashScreen = AppRoute(name: 'splash', path: '/');
+  static const AppRoute registerScreen = AppRoute(
+    name: 'register',
+    path: '/register',
+  );
+  static const AppRoute loginScreen = AppRoute(name: 'login', path: '/login');
+  static const AppRoute resetPasswordScreen = AppRoute(
+    name: 'resetPassword',
+    path: '/resetPassword',
+  );
+  static const AppRoute resetPasswordConfirmationScreen = AppRoute(
+    name: 'resetPasswordConfirmation',
+    path: '/resetPasswordConfirmationScreen',
+  );
+
+  static const AppRoute homeScreen = AppRoute(name: 'home', path: '/home');
+  static const AppRoute learningScreen = AppRoute(
+    name: 'learning',
+    path: '/learningScreen',
+  );
+  static const AppRoute cryptoScreen = AppRoute(
+    name: 'crypto',
+    path: '/cryptoScreen',
+  );
+  static const AppRoute phishingScreen = AppRoute(
+    name: 'phishing',
+    path: '/phishingScreen',
+  );
+  static const AppRoute xssScreen = AppRoute(name: 'xss', path: '/xssScreen');
+  static const AppRoute settingsScreen = AppRoute(
+    name: 'settings',
+    path: '/settings',
+  );
 }

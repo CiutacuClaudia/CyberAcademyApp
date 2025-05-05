@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'playfair_cipher_request.g.dart';
 
 @JsonSerializable()
-class PlayfairCipher{
+class PlayfairCipher {
   final String uuid;
   final String plainText;
   final String key;

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../common/widgets/custom_button_widget.dart';
 import '../../utils/routes.dart';
 
-class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Center(
@@ -15,21 +17,21 @@ class MainScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             CustomButtonWidget(
-              label: 'Cryptography',
+              label: loc.cryptography,
               onPressed: () {
-                context.push(Routes.cryptoScreen);
+                context.go('${Routes.homeScreen.path}/cryptoScreen');
               },
             ),
             CustomButtonWidget(
-              label: 'Phishing',
+              label: loc.phishing,
               onPressed: () {
-                context.push(Routes.phishingScreen);
+                context.go('${Routes.homeScreen.path}/phishingScreen');
               },
             ),
             CustomButtonWidget(
-              label: 'Web Browsing Challenge',
+              label: loc.xssChallenge,
               onPressed: () {
-                context.push(Routes.xssScreen);
+                context.go('${Routes.homeScreen.path}/xssScreen');
               },
             ),
           ],

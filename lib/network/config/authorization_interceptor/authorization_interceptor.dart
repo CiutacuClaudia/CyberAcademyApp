@@ -5,7 +5,6 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import '../../../common/repository/auth_repository.dart';
 import '../../../utils/storage_keys.dart';
 
-
 class AuthInterceptor implements InterceptorContract {
   static final AuthInterceptor _instance = AuthInterceptor._internal(
     const FlutterSecureStorage(),

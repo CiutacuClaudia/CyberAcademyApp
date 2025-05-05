@@ -10,8 +10,8 @@ class RegisterCubit extends Cubit<RegisterState> {
   final RegisterRepository _repository;
 
   RegisterCubit({RegisterRepository? repository})
-      : _repository = repository ?? RegisterRepository(),
-        super(const RegisterState(state: RegisterStateEnum.initial));
+    : _repository = repository ?? RegisterRepository(),
+      super(const RegisterState(state: RegisterStateEnum.initial));
 
   Future<void> register({
     required String firstName,

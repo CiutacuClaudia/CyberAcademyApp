@@ -14,7 +14,10 @@ String? validateName(
   return null;
 }
 
-String? validateRegisterPassword(String? value, {required AppLocalizations loc}) {
+String? validateRegisterPassword(
+  String? value, {
+  required AppLocalizations loc,
+}) {
   if (value == null || value.isEmpty) {
     return loc.passwordRequired;
   }
