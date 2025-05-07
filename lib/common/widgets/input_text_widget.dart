@@ -57,27 +57,19 @@ class InputTextWidget extends StatelessWidget {
         }),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(Dimensions.size_2),
-          borderSide: BorderSide(
-            color: colorScheme.outline,
-          ),
+          borderSide: BorderSide(color: colorScheme.outline),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(Dimensions.size_2),
-          borderSide: BorderSide(
-            color: colorScheme.outline,
-          ),
+          borderSide: BorderSide(color: colorScheme.outline),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(Dimensions.size_2),
-          borderSide: BorderSide(
-            color: colorScheme.onPrimaryFixed,
-          ),
+          borderSide: BorderSide(color: colorScheme.onPrimaryFixed),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(Dimensions.size_2),
-          borderSide: BorderSide(
-            color: colorScheme.error,
-          ),
+          borderSide: BorderSide(color: colorScheme.error),
         ),
         errorStyle: TextStyle(color: colorScheme.error),
       ),

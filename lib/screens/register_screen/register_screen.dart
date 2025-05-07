@@ -23,7 +23,7 @@ class RegisterScreen extends StatelessWidget {
         listener: (context, state) {
           if (state.state == RegisterStateEnum.success) {
             ToastService.showSuccessToast(message: loc.registrationSuccessful);
-            context.goNamed(Routes.loginScreen);
+            context.goNamed(Routes.loginScreen.name);
           } else if (state.state == RegisterStateEnum.failure) {
             ToastService.showErrorToast(message: loc.somethingWentWrongError);
           }
@@ -51,14 +51,14 @@ class RegisterScreen extends StatelessWidget {
                               child: CircularProgressIndicator(),
                             );
                           } else if (state.state == RegisterStateEnum.success) {
-                            context.goNamed(Routes.mainScreen);
+                            context.goNamed(Routes.homeScreen.name);
                             return const SizedBox();
                           } else if (state.state == RegisterStateEnum.failure) {
                             return Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
-                                  state.errorMessage ?? 'Registration failed.',
+                                  state.errorMessage ?? loc.registerFailed,
                                   style: TextStyle(
                                     color: Theme.of(context).colorScheme.error,
                                   ),

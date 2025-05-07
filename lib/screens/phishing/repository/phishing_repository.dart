@@ -21,9 +21,10 @@ class PhishingRepository {
 
     if (response.statusCode == ApiStatusCode.ok) {
       final List<dynamic> jsonList = jsonDecode(response.body) as List<dynamic>;
-      final requests = jsonList
-          .map((j) => PhishingRequest.fromJson(j as Map<String, dynamic>))
-          .toList();
+      final requests =
+          jsonList
+              .map((j) => PhishingRequest.fromJson(j as Map<String, dynamic>))
+              .toList();
       return ApiSuccess(requests);
     } else {
       String message = 'Something went wrong';
@@ -34,15 +35,20 @@ class PhishingRepository {
       return ApiFailure(statusCode: response.statusCode, message: message);
     }
   }
+
   Future<ApiResult<List<PhishingReasonRequest>>> getPhishingReasons() async {
     final url = Uri.parse('${ApiConfig.baseUrl}/cyberacademy/phishing/reasons');
     final response = await _client.get(url);
 
     if (response.statusCode == ApiStatusCode.ok) {
       final List<dynamic> jsonList = jsonDecode(response.body) as List<dynamic>;
-      final requests = jsonList
-          .map((j) => PhishingReasonRequest.fromJson(j as Map<String, dynamic>))
-          .toList();
+      final requests =
+          jsonList
+              .map(
+                (j) =>
+                    PhishingReasonRequest.fromJson(j as Map<String, dynamic>),
+              )
+              .toList();
       return ApiSuccess(requests);
     } else {
       String message = 'Something went wrong';

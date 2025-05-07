@@ -23,18 +23,16 @@ class SplashScreen extends StatelessWidget {
       child: BlocListener<SplashCubit, SplashState>(
         listener: (context, state) {
           if (state.state == SplashStateEnum.navigateDashboard) {
-            context.goNamed(Routes.mainScreen);
+            context.goNamed(Routes.homeScreen.name);
           } else if (state.state == SplashStateEnum.navigateLogin) {
-            context.goNamed(Routes.loginScreen);
+            context.goNamed(Routes.loginScreen.name);
           } else if (state.state == SplashStateEnum.finished) {
-            context.goNamed(Routes.registerScreen);
+            context.goNamed(Routes.registerScreen.name);
           }
         },
         child: Scaffold(
           backgroundColor: Colors.transparent,
-          body: const Center(
-            child: SplashForm(), // Your animated splash content goes here.
-          ),
+          body: const Center(child: SplashForm()),
         ),
       ),
     );

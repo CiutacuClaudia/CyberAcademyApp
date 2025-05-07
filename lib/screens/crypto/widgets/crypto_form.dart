@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../utils/dimensions.dart';
 import '../cubit/crypto_cubit.dart';
 import '../cubit/crypto_state.dart';
@@ -35,18 +36,20 @@ class _CryptoFormState extends State<CryptoForm> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+
     return BlocBuilder<CryptoCubit, CryptoState>(
       builder: (context, state) {
         if (state.status == CryptoStateEnum.loading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state.status == CryptoStateEnum.failure) {
-          return Center(child: Text(state.errorMessage ?? 'Error occurred'));
+          return Center(child: Text(state.errorMessage ?? loc.anErrorOccurred));
         }
 
         if (state.activeCipher == CipherType.playfair) {
           final cipher = state.currentPlayfairCipher;
           if (cipher == null) {
-            return const Center(child: Text('No Playfair cipher available'));
+            return Center(child: Text(loc.playfairCipherError));
           }
           final gridLetters = getPlayfairGrid(cipher.key);
           final boxes = preparePlaintextBoxes(cipher.plainText);
@@ -57,7 +60,7 @@ class _CryptoFormState extends State<CryptoForm> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Plaintext: ${cipher.plainText}',
+                  "${loc.plainText}: ${cipher.plainText}",
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: Dimensions.size_3),
@@ -99,27 +102,24 @@ class _CryptoFormState extends State<CryptoForm> {
                 const SizedBox(height: Dimensions.size_4),
                 TextFormField(
                   controller: _finalEncryptedController,
-                  decoration: const InputDecoration(
-                    labelText: 'Enter Final Encrypted Text',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: loc.encryptedText,
+                    border: const OutlineInputBorder(),
                   ),
                   textCapitalization: TextCapitalization.characters,
                   validator:
                       (value) =>
                           (value == null || value.isEmpty)
-                              ? 'Please enter the final encrypted text'
+                              ? loc.encryptedTextValidator
                               : null,
                 ),
                 const SizedBox(height: Dimensions.size_4),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ElevatedButton(
-                      onPressed: _submit,
-                      child: const Text('Submit'),
-                    ),
+                    ElevatedButton(onPressed: _submit, child: Text(loc.submit)),
                     const SizedBox(width: Dimensions.size_2),
-                    ElevatedButton(onPressed: _skip, child: const Text('Skip')),
+                    ElevatedButton(onPressed: _skip, child: Text(loc.skip)),
                   ],
                 ),
               ],
@@ -128,33 +128,36 @@ class _CryptoFormState extends State<CryptoForm> {
         } else if (state.activeCipher == CipherType.caesar) {
           final cipher = state.currentCaesarCipher;
           if (cipher == null) {
-            return const Center(child: Text('No Caesar cipher available'));
+            return Center(child: Text(loc.caesarCipherError));
           }
           return Form(
             key: _formKey,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('Plaintext: ${cipher.plainText}'),
+                Text(
+                  "${loc.plainText}: ${cipher.plainText}",
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
                 const SizedBox(height: Dimensions.size_4),
-                Text('Key: ${cipher.key}'),
+                Text("${loc.key}: ${cipher.key}"),
                 const SizedBox(height: Dimensions.size_4),
                 TextFormField(
                   controller: _userInputController,
-                  decoration: const InputDecoration(
-                    labelText: 'Enter Encrypted Text',
+                  decoration: InputDecoration(
+                    labelText: loc.encryptedText,
                     border: OutlineInputBorder(),
                   ),
                   validator:
                       (value) =>
                           (value == null || value.isEmpty)
-                              ? 'Please enter the encrypted text'
+                              ? loc.encryptedTextValidator
                               : null,
                 ),
                 const SizedBox(height: Dimensions.size_4),
-                ElevatedButton(onPressed: _submit, child: const Text('Submit')),
+                ElevatedButton(onPressed: _submit, child: Text(loc.submit)),
                 const SizedBox(height: Dimensions.size_2),
-                ElevatedButton(onPressed: _skip, child: const Text('Skip')),
+                ElevatedButton(onPressed: _skip, child: Text(loc.skip)),
               ],
             ),
           );
@@ -221,9 +224,9 @@ class _CryptoFormState extends State<CryptoForm> {
     for (int i = 0; i < totalCount; i++) {
       fields.add(
         Container(
-          width: 30,
-          height: 30,
-          margin: const EdgeInsets.all(2),
+          width: Dimensions.size_7_5,
+          height: Dimensions.size_7_5,
+          margin: const EdgeInsets.all(Dimensions.size_0_5),
           child: TextFormField(
             controller: plaintextControllers[i],
             focusNode: plaintextFocusNodes[i],
@@ -232,7 +235,7 @@ class _CryptoFormState extends State<CryptoForm> {
             decoration: const InputDecoration(
               counterText: '',
               border: OutlineInputBorder(),
-              contentPadding: EdgeInsets.all(4),
+              contentPadding: EdgeInsets.all(Dimensions.size_1),
             ),
             style: const TextStyle(fontSize: 16),
             onChanged: (value) {

@@ -12,15 +12,15 @@ class XssRepository {
   );
 
   Future<ApiResult<List<XssRequest>>> getChallenges() async {
-    final url =
-    Uri.parse('${ApiConfig.baseUrl}/cyberacademy/xss/challenges');
+    final url = Uri.parse('${ApiConfig.baseUrl}/cyberacademy/xss/challenges');
     final res = await _client.get(url);
 
     if (res.statusCode == ApiStatusCode.ok) {
       final List<dynamic> list = jsonDecode(res.body);
-      final items = list
-          .map((j) => XssRequest.fromJson(j as Map<String, dynamic>))
-          .toList();
+      final items =
+          list
+              .map((j) => XssRequest.fromJson(j as Map<String, dynamic>))
+              .toList();
       return ApiSuccess(items);
     } else {
       String msg = 'Error loading XSS challenges';
@@ -32,10 +32,10 @@ class XssRepository {
     }
   }
 
-  Future<ApiResult<XssRequest>> updateChallenge(
-      XssRequest request) async {
+  Future<ApiResult<XssRequest>> updateChallenge(XssRequest request) async {
     final url = Uri.parse(
-        '${ApiConfig.baseUrl}/cyberacademy/xss/challenges/${request.id}');
+      '${ApiConfig.baseUrl}/cyberacademy/xss/challenges/${request.id}',
+    );
     final res = await _client.put(
       url,
       headers: {'Content-Type': 'application/json'},

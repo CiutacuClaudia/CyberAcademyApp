@@ -7,11 +7,11 @@ class UrlLauncherService {
   /// Opens the given [url] using [launchUrl] with the specified [mode].
   /// Shows an error toast if the URL cannot be launched.
   static Future<void> openUrl(
-      BuildContext context, {
-        required String url,
-        String? errorMessage,
-        LaunchMode mode = LaunchMode.externalApplication,
-      }) async {
+    BuildContext context, {
+    required String url,
+    String? errorMessage,
+    LaunchMode mode = LaunchMode.externalApplication,
+  }) async {
     final localizedErrorMessage =
         AppLocalizations.of(context)!.couldNotLaunchUrl;
     final Uri uri = Uri.parse(url);

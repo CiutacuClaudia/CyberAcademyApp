@@ -25,7 +25,7 @@ class CryptoCubit extends Cubit<CryptoState> {
         emit(
           state.copyWith(
             status: CryptoStateEnum.failure,
-            errorMessage: "No Caesar ciphers found",
+            errorMessage: (caesarResult as ApiFailure).message,
           ),
         );
         return;

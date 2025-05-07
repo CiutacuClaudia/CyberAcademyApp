@@ -35,7 +35,7 @@ class XssCubit extends Cubit<XssState> {
       emit(
         state.copyWith(
           status: XssStateEnum.failure,
-          errorMessage: 'No XSS challenges found',
+          errorMessage: (list as ApiFailure).message,
         ),
       );
     } else {
@@ -56,7 +56,12 @@ class XssCubit extends Cubit<XssState> {
     final updated = List<String>.from(req.comments)..add(comment);
 
     final putRes = await _repository.updateChallenge(
-      XssRequest(id: req.id, blogContent: req.blogContent, comments: updated, flag: req.flag),
+      XssRequest(
+        id: req.id,
+        blogContent: req.blogContent,
+        comments: updated,
+        flag: req.flag,
+      ),
     );
 
     if (putRes is ApiFailure) {

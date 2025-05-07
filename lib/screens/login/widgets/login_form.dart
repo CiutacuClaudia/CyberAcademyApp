@@ -108,12 +108,12 @@ class _LoginFormState extends State<LoginForm> {
             CustomButtonWidget(
               label: loc.registerTitle,
               onPressed: () {
-                context.goNamed(Routes.registerScreen);
+                context.goNamed(Routes.registerScreen.name);
               },
             ),
             const SizedBox(height: Dimensions.size_4),
             TextButton(
-              onPressed: () => context.goNamed(Routes.resetPasswordScreen),
+              onPressed: () => context.goNamed(Routes.resetPasswordScreen.name),
               style: TextButton.styleFrom(foregroundColor: colorScheme.scrim),
               child: Text(loc.resetPassword),
             ),
