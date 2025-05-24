@@ -52,4 +52,20 @@ class Routes {
     name: 'settings',
     path: '/settings',
   );
+  static const AppRoute learningCiphersScreen = AppRoute(
+    name: 'learningCiphers',
+    path: '/learningCiphers',
+  );
+  static const AppRoute learningNetworkAttacksScreen = AppRoute(
+    name: 'learningNetworkAttacks',
+    path: '/learningNetworkAttacks',
+  );
+  static const AppRoute learningPhishingScreen = AppRoute(
+    name: 'learningPhishing',
+    path: '/learningPhishing',
+  );
+  static const AppRoute learningVirusesScreen = AppRoute(
+    name: 'learningViruses',
+    path: '/learningViruses',
+  );
 }
