@@ -1,5 +1,7 @@
 import 'package:disertatie/router/shell_with_navbar.dart';
 import 'package:disertatie/screens/crypto/crypto_screen.dart';
+import 'package:disertatie/screens/learning/learning_ciphers/learning_ciphers_screen.dart';
+import 'package:disertatie/screens/learning/learning_phishing/learning_phishing_screen.dart';
 import 'package:disertatie/screens/learning/learning_screen.dart';
 import 'package:disertatie/screens/phishing/phishing_screen.dart';
 import 'package:disertatie/screens/xss/xss_screen.dart';
@@ -13,6 +15,7 @@ import 'package:disertatie/screens/reset_password/reset_password_screen.dart';
 import 'package:disertatie/screens/reset_password/reset_password_confirmation_screen.dart';
 
 import '../screens/home/home_screen.dart';
+import '../screens/learning/learning_viruses/learning_viruses_screen.dart';
 import '../screens/login/login_screen.dart';
 import '../screens/settings/settings_screen.dart';
 
@@ -105,6 +108,26 @@ class AppRouter {
                 path: Routes.learningScreen.path,
                 parentNavigatorKey: RoutesKeys.learningNavigatorKey,
                 builder: (context, state) => const LearningScreen(),
+                routes: [
+                  GoRoute(
+                    name: Routes.learningCiphersScreen.name,
+                    path: Routes.learningCiphersScreen.path,
+                    parentNavigatorKey: RoutesKeys.learningNavigatorKey,
+                    builder: (context, state) => const LearningCiphersScreen(),
+                  ),
+                  GoRoute(
+                    name: Routes.learningVirusesScreen.name,
+                    path: Routes.learningVirusesScreen.path,
+                    parentNavigatorKey: RoutesKeys.learningNavigatorKey,
+                    builder: (context, state) => const LearningVirusesScreen(),
+                  ),
+                  GoRoute(
+                    name: Routes.learningPhishingScreen.name,
+                    path: Routes.learningPhishingScreen.path,
+                    parentNavigatorKey: RoutesKeys.learningNavigatorKey,
+                    builder: (context, state) => const LearningPhishingScreen(),
+                  ),
+                ],
               ),
             ],
           ),

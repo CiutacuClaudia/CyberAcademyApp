@@ -73,5 +73,10 @@
   "nextChallenge": "Next Challenge",
   "subject": "Subject:",
   "blog": "Blog:",
-  "key": "key"
+  "key": "key",
+  "ciphers": "Ciphers",
+  "viruses": "Viruses",
+  "next": "Next",
+  "videoPlaceholder": "watch the next video to understand the concept",
+  "errorLoadingLessons": "Failed to load the lesson"
 }
