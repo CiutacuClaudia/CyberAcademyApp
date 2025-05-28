@@ -6,12 +6,14 @@ import '../../utils/dimensions.dart';
 import 'cubit/phishing_cubit.dart';
 
 class PhishingScreen extends StatelessWidget {
-  const PhishingScreen({super.key});
+  final String? userCode;
+
+  const PhishingScreen({super.key, this.userCode});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => PhishingCubit(),
+      create: (_) => PhishingCubit(userCode: userCode),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(

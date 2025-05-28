@@ -14,6 +14,7 @@ PhishingRequest _$PhishingRequestFromJson(Map<String, dynamic> json) =>
           (json['parts'] as List<dynamic>)
               .map((e) => PhishingPart.fromJson(e as Map<String, dynamic>))
               .toList(),
+      userCode: json['userCode'] as String?,
     );
 
 Map<String, dynamic> _$PhishingRequestToJson(PhishingRequest instance) =>
@@ -21,6 +22,7 @@ Map<String, dynamic> _$PhishingRequestToJson(PhishingRequest instance) =>
       'uuid': instance.uuid,
       'emailSubject': instance.emailSubject,
       'parts': instance.parts.map((e) => e.toJson()).toList(),
+      'userCode': instance.userCode,
     };
 
 PhishingPart _$PhishingPartFromJson(Map<String, dynamic> json) => PhishingPart(

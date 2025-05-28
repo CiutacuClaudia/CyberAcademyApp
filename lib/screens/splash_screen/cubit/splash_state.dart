@@ -6,6 +6,7 @@ enum SplashStateEnum {
   finished,
   navigateDashboard,
   navigateLogin,
+  navigateAdminDashboard,
 }
 
 class SplashState extends Equatable {

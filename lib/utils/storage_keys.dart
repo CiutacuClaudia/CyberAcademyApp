@@ -5,4 +5,5 @@ class StorageKeys {
   static const email = 'email';
   static const firstName = 'firstName';
   static const lastName = 'lastName';
+  static const isAdmin = 'isAdmin';
 }
