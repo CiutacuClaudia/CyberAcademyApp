@@ -9,8 +9,9 @@ import 'phishing_state.dart';
 
 class PhishingCubit extends Cubit<PhishingState> {
   final PhishingRepository _repository;
+  final String? userCode;
 
-  PhishingCubit({PhishingRepository? repository})
+  PhishingCubit({this.userCode, PhishingRepository? repository})
     : _repository = repository ?? PhishingRepository(),
       super(const PhishingState(status: PhishingStateEnum.initial)) {
     loadPhishing();
@@ -19,18 +20,27 @@ class PhishingCubit extends Cubit<PhishingState> {
   Future<void> loadPhishing() async {
     emit(state.copyWith(status: PhishingStateEnum.loading));
 
-    final reqResult = await _repository.getPhishingRequests();
+    ApiResult<List<PhishingRequest>> reqResult;
+    if (userCode == null) {
+      reqResult = await _repository.getPhishingRequests();
+    } else {
+      reqResult = await _repository.getPhishingRequestsByUserCode(userCode!);
+    }
+
     if (reqResult is ApiFailure) {
-      final failure = reqResult as ApiFailure;
       emit(
         state.copyWith(
           status: PhishingStateEnum.failure,
-          errorMessage: failure.message,
+          errorMessage: (reqResult as ApiFailure).message,
         ),
       );
       return;
     }
 
+    var requests = (reqResult as ApiSuccess<List<PhishingRequest>>).data;
+    if (userCode == null) {
+      requests = requests.where((r) => r.userCode == null).toList();
+    }
     final reasonResult = await _repository.getPhishingReasons();
     if (reasonResult is ApiFailure) {
       final failure = reasonResult as ApiFailure;
@@ -43,7 +53,6 @@ class PhishingCubit extends Cubit<PhishingState> {
       return;
     }
 
-    final requests = (reqResult as ApiSuccess<List<PhishingRequest>>).data;
     final reasons =
         (reasonResult as ApiSuccess<List<PhishingReasonRequest>>).data;
 

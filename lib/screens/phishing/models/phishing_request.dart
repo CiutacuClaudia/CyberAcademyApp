@@ -7,11 +7,13 @@ class PhishingRequest {
   final String uuid;
   final String emailSubject;
   final List<PhishingPart> parts;
+  final String? userCode;
 
   PhishingRequest({
     required this.uuid,
     required this.emailSubject,
     required this.parts,
+    this.userCode,
   });
 
   factory PhishingRequest.fromJson(Map<String, dynamic> json) =>

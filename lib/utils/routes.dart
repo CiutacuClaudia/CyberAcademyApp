@@ -4,10 +4,16 @@ class RoutesKeys {
   static final GlobalKey<NavigatorState> homeNavigatorKey =
       GlobalKey<NavigatorState>();
 
+  static final GlobalKey<NavigatorState> homeAdminNavigatorKey =
+      GlobalKey<NavigatorState>();
+
   static final GlobalKey<NavigatorState> learningNavigatorKey =
       GlobalKey<NavigatorState>();
 
   static final GlobalKey<NavigatorState> settingsNavigatorKey =
+      GlobalKey<NavigatorState>();
+
+  static final GlobalKey<NavigatorState> settingsAdminNavigatorKey =
       GlobalKey<NavigatorState>();
 }
 
@@ -33,8 +39,11 @@ class Routes {
     name: 'resetPasswordConfirmation',
     path: '/resetPasswordConfirmationScreen',
   );
-
   static const AppRoute homeScreen = AppRoute(name: 'home', path: '/home');
+  static const AppRoute adminHomeScreen = AppRoute(
+    name: 'adminHome',
+    path: '/adminHome',
+  );
   static const AppRoute learningScreen = AppRoute(
     name: 'learning',
     path: '/learningScreen',
@@ -52,6 +61,10 @@ class Routes {
     name: 'settings',
     path: '/settings',
   );
+  static const AppRoute settingsAdminScreen = AppRoute(
+    name: 'settingsAdmin',
+    path: '/settingsAdmin',
+  );
   static const AppRoute learningCiphersScreen = AppRoute(
     name: 'learningCiphers',
     path: '/learningCiphers',
@@ -67,5 +80,9 @@ class Routes {
   static const AppRoute learningVirusesScreen = AppRoute(
     name: 'learningViruses',
     path: '/learningViruses',
+  );
+  static const AppRoute createPhishingGameScreen = AppRoute(
+    name: 'createPhishingGame',
+    path: '/createPhishingGame',
   );
 }

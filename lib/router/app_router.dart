@@ -1,4 +1,6 @@
 import 'package:disertatie/router/shell_with_navbar.dart';
+import 'package:disertatie/router/shell_with_navbar_admin.dart';
+import 'package:disertatie/screens/create_phishing_game/create_phishing_screen.dart';
 import 'package:disertatie/screens/crypto/crypto_screen.dart';
 import 'package:disertatie/screens/learning/learning_ciphers/learning_ciphers_screen.dart';
 import 'package:disertatie/screens/learning/learning_phishing/learning_phishing_screen.dart';
@@ -14,6 +16,7 @@ import 'package:disertatie/screens/register_screen/register_screen.dart';
 import 'package:disertatie/screens/reset_password/reset_password_screen.dart';
 import 'package:disertatie/screens/reset_password/reset_password_confirmation_screen.dart';
 
+import '../screens/adminHomeScreen/admin_home_screen.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/learning/learning_viruses/learning_viruses_screen.dart';
 import '../screens/login/login_screen.dart';
@@ -52,7 +55,53 @@ class AppRouter {
         path: Routes.resetPasswordConfirmationScreen.path,
         builder: (context, state) => const ResetPasswordConfirmationScreen(),
       ),
-
+      StatefulShellRoute(
+        builder: (context, state, navigationShell) => navigationShell,
+        navigatorContainerBuilder: (
+          BuildContext context,
+          StatefulNavigationShell navigationShell,
+          List<Widget> children,
+        ) {
+          return AdminShellWithNavbar(
+            navigationShell: navigationShell,
+            children: children,
+          );
+        },
+        branches: [
+          StatefulShellBranch(
+            initialLocation: Routes.adminHomeScreen.path,
+            navigatorKey: RoutesKeys.homeAdminNavigatorKey,
+            routes: [
+              GoRoute(
+                name: Routes.adminHomeScreen.name,
+                path: Routes.adminHomeScreen.path,
+                parentNavigatorKey: RoutesKeys.homeAdminNavigatorKey,
+                builder: (context, state) => const AdminHomeScreen(),
+                routes: [
+                  GoRoute(
+                    name: Routes.createPhishingGameScreen.name,
+                    path: Routes.createPhishingGameScreen.path,
+                    parentNavigatorKey: _rootNavigatorKey,
+                    builder: (context, state) => const CreatePhishingScreen(),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            initialLocation: Routes.settingsAdminScreen.path,
+            navigatorKey: RoutesKeys.settingsAdminNavigatorKey,
+            routes: [
+              GoRoute(
+                name: Routes.settingsAdminScreen.name,
+                path: Routes.settingsAdminScreen.path,
+                parentNavigatorKey: RoutesKeys.settingsAdminNavigatorKey,
+                builder: (context, state) => const SettingsScreen(),
+              ),
+            ],
+          ),
+        ],
+      ),
       StatefulShellRoute(
         builder: (context, state, navigationShell) => navigationShell,
         navigatorContainerBuilder: (
@@ -86,7 +135,10 @@ class AppRouter {
                     name: Routes.phishingScreen.name,
                     path: Routes.phishingScreen.path,
                     parentNavigatorKey: _rootNavigatorKey,
-                    builder: (context, state) => const PhishingScreen(),
+                    builder: (context, state) {
+                      final code = state.uri.queryParameters['userCode'];
+                      return PhishingScreen(userCode: code);
+                    },
                   ),
                   GoRoute(
                     name: Routes.xssScreen.name,

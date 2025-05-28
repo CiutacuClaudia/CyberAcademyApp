@@ -59,5 +59,9 @@ class LoginCubit extends Cubit<LoginState> {
       value: user.firstName,
     );
     await _secureStorage.write(key: StorageKeys.lastName, value: user.lastName);
+    await _secureStorage.write(
+      key: StorageKeys.isAdmin,
+      value: user.isAdmin.toString(),
+    );
   }
 }

@@ -1,3 +1,5 @@
+import 'package:disertatie/router/app_router.dart';
+import 'package:disertatie/utils/routes.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http_interceptor/http_interceptor.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -50,6 +52,7 @@ class AuthInterceptor implements InterceptorContract {
           } else {
             await secureStorage.delete(key: StorageKeys.accessToken);
             await secureStorage.delete(key: StorageKeys.refreshToken);
+            AppRouter.goRouter.goNamed(Routes.loginScreen.name);
             accessToken = null;
           }
         } else {
@@ -72,6 +75,7 @@ class AuthInterceptor implements InterceptorContract {
     if (response.statusCode == 401) {
       await secureStorage.delete(key: StorageKeys.accessToken);
       await secureStorage.delete(key: StorageKeys.refreshToken);
+      AppRouter.goRouter.goNamed(Routes.loginScreen.name);
     }
     return response;
   }

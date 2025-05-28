@@ -10,14 +10,19 @@ class User {
   final String firstName;
   final String lastName;
   final String email;
+  @JsonKey(name: 'isAdmin')
+  final bool isAdmin;
+  final String userCode;
 
   User({
-    required this.accessToken,
-    required this.refreshToken,
+    this.accessToken,
+    this.refreshToken,
     required this.uuid,
     required this.firstName,
     required this.lastName,
     required this.email,
+    required this.isAdmin,
+    required this.userCode,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

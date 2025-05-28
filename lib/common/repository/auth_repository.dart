@@ -16,7 +16,7 @@ class AuthRepository {
     final refreshRequest = RefreshTokenRequest(refreshToken: refreshToken);
     final response = await _client.post(
       url,
-      headers: {'Content-Type': 'application/json'},
+      headers: ApiConfig.jsonHeaders,
       body: jsonEncode(refreshRequest.toJson()),
     );
 

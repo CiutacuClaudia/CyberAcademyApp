@@ -30,10 +30,10 @@ class SplashCubit extends Cubit<SplashState> {
       key: StorageKeys.refreshToken,
     );
 
-    SplashStateEnum state;
+    SplashStateEnum nextState;
     if (accessToken != null && refreshToken != null) {
       if (!JwtDecoder.isExpired(accessToken)) {
-        state = SplashStateEnum.navigateDashboard;
+        nextState = SplashStateEnum.navigateDashboard;
       } else {
         final newAccessToken = await _authRepository.refreshAccessToken(
           refreshToken,
@@ -43,13 +43,21 @@ class SplashCubit extends Cubit<SplashState> {
             key: StorageKeys.accessToken,
             value: newAccessToken,
           );
-          state = SplashStateEnum.navigateDashboard;
+          nextState = SplashStateEnum.navigateDashboard;
         } else {
-          state = SplashStateEnum.navigateLogin;
+          nextState = SplashStateEnum.navigateLogin;
         }
       }
     } else {
-      state = SplashStateEnum.navigateLogin;
+      nextState = SplashStateEnum.navigateLogin;
+    }
+
+    if (nextState == SplashStateEnum.navigateDashboard) {
+      final isAdminString = await _secureStorage.read(key: StorageKeys.isAdmin);
+      final isAdmin = isAdminString == 'true';
+      if (isAdmin) {
+        nextState = SplashStateEnum.navigateAdminDashboard;
+      }
     }
 
     final elapsed = DateTime.now().difference(startTime);
@@ -58,7 +66,7 @@ class SplashCubit extends Cubit<SplashState> {
       await Future.delayed(minSplashDuration - elapsed);
     }
 
-    emit(SplashState(state: state));
+    emit(SplashState(state: nextState));
   }
 
   void _startAnimation() async {
