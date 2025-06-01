@@ -9,11 +9,7 @@ class CreatePhishingPart {
     this.reasonId,
   });
 
-  CreatePhishingPart copyWith({
-    String? text,
-    bool? isPhishing,
-    int? reasonId,
-  }) {
+  CreatePhishingPart copyWith({String? text, bool? isPhishing, int? reasonId}) {
     return CreatePhishingPart(
       text: text ?? this.text,
       isPhishing: isPhishing ?? this.isPhishing,

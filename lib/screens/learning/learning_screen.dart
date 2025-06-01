@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../utils/routes.dart';
-import '../../common/widgets/custom_button_widget.dart';
+import '../../common/widgets/custom_book_button.dart';
 
 class LearningScreen extends StatelessWidget {
   const LearningScreen({super.key});
@@ -14,30 +14,26 @@ class LearningScreen extends StatelessWidget {
     final loc = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(title: Text(loc.learningTitle)),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(Dimensions.size_6),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              CustomButtonWidget(
+              CustomBookButton(
                 label: loc.ciphers,
-                onPressed: () {
-                  context.goNamed(Routes.learningCiphersScreen.name);
-                },
+                onPressed:
+                    () => context.goNamed(Routes.learningCiphersScreen.name),
               ),
-              CustomButtonWidget(
+              CustomBookButton(
                 label: loc.phishing,
-                onPressed: () {
-                  context.goNamed(Routes.learningPhishingScreen.name);
-                },
+                onPressed:
+                    () => context.goNamed(Routes.learningPhishingScreen.name),
               ),
-              CustomButtonWidget(
+              CustomBookButton(
                 label: loc.viruses,
-                onPressed: () {
-                  context.goNamed(Routes.learningVirusesScreen.name);
-                },
+                onPressed:
+                    () => context.goNamed(Routes.learningVirusesScreen.name),
               ),
             ],
           ),

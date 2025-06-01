@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import '../../common/widgets/custom_button_widget.dart';
+import '../../common/widgets/custom_image_button.dart';
 import '../../utils/routes.dart';
+import '../../utils/dimensions.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -85,19 +88,24 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CustomButtonWidget(
+            CustomSquareButtonWidget(
+              image: AssetImage("assets/images/ciphers.png"),
               label: loc.cryptography,
               onPressed: () {
                 context.go('${Routes.homeScreen.path}/cryptoScreen');
               },
             ),
-            CustomButtonWidget(
+            SizedBox(height: Dimensions.size_2),
+            CustomSquareButtonWidget(
+              image: AssetImage("assets/images/phishing.png"),
               label: loc.phishing,
               onPressed: () {
                 context.go('${Routes.homeScreen.path}/phishingScreen');
               },
             ),
-            CustomButtonWidget(
+            SizedBox(height: Dimensions.size_2),
+            CustomSquareButtonWidget(
+              image: AssetImage("assets/images/xss.png"),
               label: loc.xssChallenge,
               onPressed: () {
                 context.go('${Routes.homeScreen.path}/xssScreen');

@@ -59,7 +59,7 @@ class CreatePhishingScreen extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: TextButton.icon(
-                        icon: const Icon(Icons.add),
+                        icon: const Icon(Icons.add_circle_outline_outlined),
                         label: Text(loc.addPart),
                         onPressed: ctx.read<CreatePhishingCubit>().addEmptyPart,
                       ),

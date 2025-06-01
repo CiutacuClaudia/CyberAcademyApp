@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../common/widgets/custom_button_widget.dart';
 import '../../utils/routes.dart';
+import '../../utils/dimensions.dart'; // ← import Dimensions
 
 class AdminHomeScreen extends StatelessWidget {
   const AdminHomeScreen({super.key});
@@ -14,18 +15,21 @@ class AdminHomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CustomButtonWidget(
-              label: loc.createPhishing,
-              onPressed: () {
-                context.go(
-                  '${Routes.adminHomeScreen.path}/createPhishingGame',
-                );
-              },
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: Dimensions.size_4),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CustomButtonWidget(
+                label: loc.createPhishing,
+                onPressed: () {
+                  context.go(
+                    '${Routes.adminHomeScreen.path}/createPhishingGame',
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -19,24 +19,28 @@ class CreatePhishingCubit extends Cubit<CreatePhishingState> {
   CreatePhishingCubit({
     PhishingRepository? userRepo,
     CreatePhishingRepository? repo,
-  })  : _userRepo = userRepo ?? PhishingRepository(),
-        _repo = repo ?? CreatePhishingRepository(),
-        super(const CreatePhishingState(status: CreatePhishingStatus.initial));
+  }) : _userRepo = userRepo ?? PhishingRepository(),
+       _repo = repo ?? CreatePhishingRepository(),
+       super(const CreatePhishingState(status: CreatePhishingStatus.initial));
 
   Future<void> loadReasons() async {
     emit(state.copyWith(status: CreatePhishingStatus.loading));
     final res = await _userRepo.getPhishingReasons();
     if (res is ApiFailure) {
       final failure = res as ApiFailure;
-      emit(state.copyWith(
-        status: CreatePhishingStatus.failure,
-        errorMessage: failure.message,
-      ));
+      emit(
+        state.copyWith(
+          status: CreatePhishingStatus.failure,
+          errorMessage: failure.message,
+        ),
+      );
     } else {
-      emit(state.copyWith(
-        status: CreatePhishingStatus.success,
-        reasons: (res as ApiSuccess<List<PhishingReasonRequest>>).data,
-      ));
+      emit(
+        state.copyWith(
+          status: CreatePhishingStatus.success,
+          reasons: (res as ApiSuccess<List<PhishingReasonRequest>>).data,
+        ),
+      );
     }
   }
 
@@ -87,43 +91,48 @@ class CreatePhishingCubit extends Cubit<CreatePhishingState> {
 
     showDialog(
       context: context,
-      builder: (ctx) => StatefulBuilder(
-        builder: (ctx, setState) => AlertDialog(
-          title: Text(loc.whyIsThisPhishing),
-          content: SizedBox(
-            width: double.maxFinite,
-            child: ListView(
-              shrinkWrap: true,
-              children: reasons.map((r) {
-                return RadioListTile<int>(
-                  title: Text(r.description),
-                  value: r.id,
-                  groupValue: selected,
-                  onChanged: (v) => setState(() => selected = v),
-                );
-              }).toList(),
-            ),
+      builder:
+          (ctx) => StatefulBuilder(
+            builder:
+                (ctx, setState) => AlertDialog(
+                  title: Text(loc.whyIsThisPhishing),
+                  content: SizedBox(
+                    width: double.maxFinite,
+                    child: ListView(
+                      shrinkWrap: true,
+                      children:
+                          reasons.map((r) {
+                            return RadioListTile<int>(
+                              title: Text(r.description),
+                              value: r.id,
+                              groupValue: selected,
+                              onChanged: (v) => setState(() => selected = v),
+                            );
+                          }).toList(),
+                    ),
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed:
+                          selected == null
+                              ? null
+                              : () {
+                                togglePartPhishing(partIndex);
+                                updatePartReason(partIndex, selected!);
+                                Navigator.of(ctx).pop();
+                              },
+                      child: Text(loc.confirm),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.of(ctx).pop(),
+                      child: Text(loc.cancel),
+                    ),
+                  ],
+                ),
           ),
-          actions: [
-            TextButton(
-              onPressed: selected == null
-                  ? null
-                  : () {
-                togglePartPhishing(partIndex);
-                updatePartReason(partIndex, selected!);
-                Navigator.of(ctx).pop();
-              },
-              child: Text(loc.confirm),
-            ),
-            TextButton(
-              onPressed: () => Navigator.of(ctx).pop(),
-              child: Text(loc.cancel),
-            ),
-          ],
-        ),
-      ),
     );
   }
+
   Future<void> submit() async {
     if (!state.canSubmit) return;
     emit(state.copyWith(status: CreatePhishingStatus.loading));
@@ -136,30 +145,33 @@ class CreatePhishingCubit extends Cubit<CreatePhishingState> {
     final res = await _repo.createPhishing(req);
 
     if (res is ApiFailure) {
-      emit(state.copyWith(
-        status: CreatePhishingStatus.failure,
-        errorMessage: res.message,
-        justSubmitted: false,
-      ));
+      emit(
+        state.copyWith(
+          status: CreatePhishingStatus.failure,
+          errorMessage: res.message,
+          justSubmitted: false,
+        ),
+      );
     } else {
-      emit(state.copyWith(
-        status: CreatePhishingStatus.success,
-        justSubmitted: true,
-      ));
+      emit(
+        state.copyWith(
+          status: CreatePhishingStatus.success,
+          justSubmitted: true,
+        ),
+      );
     }
   }
 }
 
-/// Cubit to power the preview dialog's PhishingForm
 class PreviewPhishingCubit extends Cubit<PhishingState> {
-  PreviewPhishingCubit(
-      PhishingRequest req,
-      List<PhishingReasonRequest> reasons,
-      ) : super(PhishingState(
-    status: PhishingStateEnum.success,
-    requests: [req],
-    reasons: reasons,
-    currentIndex: 0,
-    selectedPartIndices: [],
-  ));
+  PreviewPhishingCubit(PhishingRequest req, List<PhishingReasonRequest> reasons)
+    : super(
+        PhishingState(
+          status: PhishingStateEnum.success,
+          requests: [req],
+          reasons: reasons,
+          currentIndex: 0,
+          selectedPartIndices: [],
+        ),
+      );
 }
