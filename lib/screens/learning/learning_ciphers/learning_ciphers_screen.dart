@@ -2,6 +2,8 @@ import 'package:disertatie/screens/learning/learning_ciphers/widgets/learning_ci
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../common/widgets/custom_book_button.dart';
+import '../../../utils/dimensions.dart';
 import 'cubit/learning_ciphers_cubit.dart';
 import 'cubit/learning_ciphers_state.dart';
 import 'models/learning_ciphers_request.dart';
@@ -12,6 +14,7 @@ class LearningCiphersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+
     return BlocProvider(
       create: (_) => LearningCiphersCubit(),
       child: Scaffold(
@@ -27,13 +30,13 @@ class LearningCiphersScreen extends StatelessWidget {
                         ? state.data.first.subtitles
                         : <CipherType>[];
                 return ListView.builder(
+                  padding: const EdgeInsets.all(Dimensions.size_4),
                   itemCount: cipherTypes.length,
-                  itemBuilder: (_, i) {
+                  itemBuilder: (context, i) {
                     final t = cipherTypes[i];
-                    return ListTile(
-                      title: Text(t.title),
-                      trailing: const Icon(Icons.arrow_forward),
-                      onTap:
+                    return CustomBookButton(
+                      label: t.title,
+                      onPressed:
                           () => Navigator.push(
                             context,
                             MaterialPageRoute(

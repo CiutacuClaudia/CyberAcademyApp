@@ -1,31 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import '../../../../common/widgets/custom_drop_down.dart';
 import '../../../../common/widgets/video_asset.dart';
 import '../../../../utils/dimensions.dart';
-import '../models/learning_ciphers_request.dart';
+import '../models/learning_viruses_request.dart';
 
-class LearningCipherDetailScreen extends StatefulWidget {
-  final CipherType cipherType;
+class LearningVirusesDetailScreen extends StatefulWidget {
+  final VirusesType virusesType;
 
-  const LearningCipherDetailScreen({super.key, required this.cipherType});
+  const LearningVirusesDetailScreen({super.key, required this.virusesType});
 
   @override
-  _LearningCipherDetailScreenState createState() =>
-      _LearningCipherDetailScreenState();
+  _LearningVirusesDetailScreenState createState() =>
+      _LearningVirusesDetailScreenState();
 }
 
-class _LearningCipherDetailScreenState
-    extends State<LearningCipherDetailScreen> {
+class _LearningVirusesDetailScreenState
+    extends State<LearningVirusesDetailScreen> {
   int? _openIndex;
 
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
-    final items = widget.cipherType.subtitles;
+    final items = widget.virusesType.subtitles;
 
     return Scaffold(
-      appBar: AppBar(title: Text(widget.cipherType.title)),
+      appBar: AppBar(title: Text(widget.virusesType.title)),
       body: ListView.builder(
         padding: const EdgeInsets.all(Dimensions.size_4),
         itemCount: items.length,
@@ -33,11 +34,11 @@ class _LearningCipherDetailScreenState
           final detail = items[i];
           final isVideo =
               detail.content.trim().toLowerCase() == loc.videoPlaceholder;
-          final child =
+          final content =
               isVideo
                   ? AssetVideoPlayer(
                     assetPath:
-                    'assets/videos/playfair_cipher_example.mp4',
+                        'assets/videos/${detail.title.toLowerCase()}_example.mp4',
                   )
                   : Text(
                     detail.content,
@@ -51,7 +52,7 @@ class _LearningCipherDetailScreenState
                 (open) => setState(() => _openIndex = open ? i : null),
             startColor: Theme.of(context).colorScheme.primary.withOpacity(0.9),
             endColor: Theme.of(context).colorScheme.secondary.withOpacity(0.9),
-            child: child,
+            child: content,
           );
         },
       ),
