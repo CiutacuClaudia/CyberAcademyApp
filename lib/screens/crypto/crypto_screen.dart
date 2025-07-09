@@ -13,7 +13,6 @@ class CryptoScreen extends StatelessWidget {
     return BlocProvider(
       create: (_) => CryptoCubit(),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
         appBar: AppBar(
           leading: const CustomBackButton(),
           backgroundColor: Colors.transparent,
