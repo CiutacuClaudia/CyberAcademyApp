@@ -15,7 +15,6 @@ class PhishingScreen extends StatelessWidget {
     return BlocProvider(
       create: (_) => PhishingCubit(userCode: userCode),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
         appBar: AppBar(
           leading: const CustomBackButton(),
           backgroundColor: Colors.transparent,
